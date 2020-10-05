@@ -1,0 +1,133 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+	<div class="container mt-5">
+		<h2>User Registration Form</h2>
+		<form:form action="registration" method="post" modelAttribute="user"
+			class="form-horizontal">
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="username">Username</form:label>
+				<div class="col-sm-10">
+					<form:input type="text" class="form-control"
+						placeholder="Enter Username" path="username" required="true" />
+					<form:errors path="username" style="color: red" />
+					<c:if test="${isLoginExists == true}">
+						<p style="color: red">The login you've entered is already
+							exist. Please reenter</p>
+					</c:if>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="password">Password</form:label>
+				<div class="col-sm-10">
+					<form:input type="password" class="form-control"
+						placeholder="Enter Password" path="password" required="true" />
+					<form:errors path="password" style="color: red" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="confirmPassword">Confirm
+					Password</form:label>
+				<div class="col-sm-10">
+					<form:input type="password" class="form-control"
+						placeholder="Enter Password again" path="confirmPassword"
+						required="true" />
+					<c:if test="${isPassTheSame == false}">
+						<p style="color: red">Password is not the same</p>
+					</c:if>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="email">Email</form:label>
+				<div class="col-sm-10">
+					<form:input type="email" class="form-control"
+						placeholder="Enter Email" path="email" required="true" />
+					<form:errors path="email" style="color: red" />
+					<c:if test="${isEmailExists == true}">
+						<p style="color: red">The email you've entered is already
+							exist. Please reenter</p>
+					</c:if>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="firstName">First Name</form:label>
+				<div class="col-sm-10">
+					<form:input type="text" class="form-control"
+						placeholder="Enter First Name" path="firstName" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="lastName">Last Name</form:label>
+				<div class="col-sm-10">
+					<form:input type="text" class="form-control"
+						placeholder="Enter Last Name" path="lastName" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="birthday">Birthday</form:label>
+				<div class="col-sm-10">
+					<form:input type="date" class="form-control"
+						placeholder="Enter Birthday" path="birthday" required="true" />
+					<form:errors path="birthday" style="color: red" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<form:label class="control-label col-sm-2" path="userRole.name">Role</form:label>
+				<div class="col-sm-10">
+					<form:select name="role" class="form-control" path="userRole.name"
+						required="true">
+						<option value="Cleaner" selected>Cleaner</option>
+					</form:select>
+				</div>
+			</div>
+			<div class="g-recaptcha"
+				data-sitekey="6LcQ7MYZAAAAAN-QDC98taGkZ5qxGNmqEP_9BJIq"></div>
+			<c:if test="${iAmNotRobot == false}">
+				<p style="color: red">The robot validation is failed. Please try
+					again</p>
+			</c:if>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10" style="display: inline">
+					<div style="display: inline-block">
+						<button type="submit" class="btn btn-primary" name="ok" value="ok">OK</button>
+					</div>
+					<div style="display: inline-block">
+						<a class="btn btn-danger" href="." role="button">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</form:form>
+	</div>
+</body>
+</html>
